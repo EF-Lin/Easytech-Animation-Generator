@@ -5,10 +5,15 @@ from error import SizeError
 
 @dataclass
 class Bin:
-    """limit: 4bits, usage: generate_ani -> generate_bin -> generate_xml"""
+    """
+    Limit: 4bits.
+    Usage: generate_ani -> generate_bin -> generate_xml.
+    Known error types: SizeError, AttributeError, IndexError.
+    """
     FRAME: int
     NUM: int
     TIME: int = 4
+    DEFAULT_PATH: str = '.'
 
     def __post_init__(self) -> str or bool:
         self.ani_name = []
@@ -16,8 +21,12 @@ class Bin:
         self.string_index = []
         self.file_name = f'{self.NUM}x{self.FRAME}frame_animation'
         self.file_type = ['.bin', '.xml']
-        self.main_path = os.path.normpath(f'./{self.file_name}{self.file_type[0]}')
-        self.xml_path = os.path.normpath(f'./{self.file_name}{self.file_type[1]}')
+        self.main_path = os.path.normpath(self.DEFAULT_PATH)
+        self.bin_path = os.path.normpath(f'{self.DEFAULT_PATH}/{self.file_name}{self.file_type[0]}')
+        self.xml_path = os.path.normpath(f'{self.DEFAULT_PATH}/{self.file_name}{self.file_type[1]}')
+
+    def __str__(self):
+        return 'Easytech animation generator developed by EF'
 
     @staticmethod
     def int_to_2bit_hex(n: int) -> str:
@@ -52,11 +61,8 @@ class Bin:
             raise SizeError
 
     @staticmethod
-    def list_to_byte(data: list) -> bytes or str:
-        try:
-            return bytes.fromhex(''.join(data[0:len(data)]))
-        except Exception as ex:
-            return str(ex)
+    def list_to_byte(data: list) -> bytes:
+        return bytes.fromhex(''.join(data[0:len(data)]))
 
     def size_calculator_8bit(self, header_size: int, repeater_size: int = 0, n: int = 0) -> [list, int]:
         return self.int_to_8bit_hex(repeater_size * n + header_size), repeater_size * n + header_size
@@ -251,8 +257,7 @@ class Bin:
         return True
 
     def generate_bin(self) -> bool:
-        # AttributeError or IndexError
-        with open(self.main_path, 'wb') as f:
+        with open(self.bin_path, 'wb') as f:
             f.write(self.header_byte + self.element_byte + self.index_byte + self.frame_byte + self.layer_byte
                     + self.item_byte + self.string_byte)
         return True
