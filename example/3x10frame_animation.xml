@@ -1,0 +1,37 @@
+<Texture name="3x10frame_animation.png" />
+<Images>
+	<!--animation name: 動畫1By EF,TW-->
+	<Image name="10.png" x="9" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="11.png" x="101" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="12.png" x="196" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="13.png" x="290" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="14.png" x="383" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="15.png" x="476" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="16.png" x="568" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="17.png" x="665" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="18.png" x="757" y="10" w="82" h="102" refx="0" refy="0" />
+    <Image name="19.png" x="859" y="10" w="141" h="102" refx="0" refy="0" />
+	<!--animation name: 動畫2By EF,TW-->
+	<Image name="20.png" x="9" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="21.png" x="101" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="22.png" x="196" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="23.png" x="290" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="24.png" x="383" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="25.png" x="476" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="26.png" x="568" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="27.png" x="665" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="28.png" x="757" y="169" w="82" h="102" refx="0" refy="0" />
+    <Image name="29.png" x="859" y="169" w="141" h="102" refx="0" refy="0" />
+	<!--animation name: 動畫3By EF,TW-->
+	<Image name="30.png" x="9" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="31.png" x="101" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="32.png" x="196" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="33.png" x="290" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="34.png" x="383" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="35.png" x="476" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="36.png" x="568" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="37.png" x="665" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="38.png" x="757" y="322" w="82" h="102" refx="0" refy="0" />
+    <Image name="39.png" x="859" y="322" w="141" h="102" refx="0" refy="0" />
+</Images>
+<!--made by EF-->
