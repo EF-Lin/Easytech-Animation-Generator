@@ -14,7 +14,7 @@ class Window:
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry('400x200')
-        self.window.title('Easytech animation generator')
+        self.window.title('Easytech Animation Generator')
         with open('tmp.ico', 'wb+') as d:
             d.write(base64.b64decode(icon))
         self.window.iconbitmap('tmp.ico')
@@ -25,7 +25,7 @@ class Window:
         self.path_var.set(os.getcwd())
         path_lbl = tk.Label(self.window, textvariable=self.path_var)
         path_lbl.pack()
-        path_btn = tk.Button(self.window, text='Chose directory', command=self.update_path)
+        path_btn = tk.Button(self.window, text='Chose path', command=self.update_path)
         path_btn.pack()
         frame_lbl = tk.Label(self.window, text='Frame number')
         frame_lbl.pack()
