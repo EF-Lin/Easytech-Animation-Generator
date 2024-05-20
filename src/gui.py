@@ -1,8 +1,10 @@
 from generator import Bin
 import error
+from icon import icon
 import tkinter as tk
 from tkinter import messagebox, filedialog
 import os
+import base64
 
 
 class Window:
@@ -13,7 +15,11 @@ class Window:
         self.window = tk.Tk()
         self.window.geometry('400x200')
         self.window.title('Easytech animation generator')
-        self.window.iconbitmap(default=os.path.normpath('../asset/icon.ico'))
+        with open('tmp.ico', 'wb+') as d:
+            d.write(base64.b64decode(icon))
+        self.window.iconbitmap('tmp.ico')
+        self.window.lift()
+        os.remove('tmp.ico')
         self.path = '.'
         self.path_var = tk.StringVar()
         self.path_var.set(os.getcwd())
