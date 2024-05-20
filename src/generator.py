@@ -36,6 +36,7 @@ class Bin:
         elif len(n) == 2:
             return n
         else:
+            print(n)
             raise SizeError
 
     @staticmethod
@@ -73,8 +74,9 @@ class Bin:
         element_size_list, self.element_size = self.size_calculator_8bit(0x10, 0x2c, element_num)
         # 0x10
         element_header = ['42', '45', '4C', '45', 'xx', 'xx', 'xx', 'xx',
-                          '21', '00', '00', '00', '38', '74', '5E', '00']
+                          'xx', 'xx', '00', '00', '38', '74', '5E', '00']
         element_header[4:8] = element_size_list
+        element_header[8:10] = self.int_to_4bit_hex(element_num)
         # 0x2c
         # repeat self.element_num
         element_repeater = ['00', '00', '80', '3F', '00', '00', '00', '00',
@@ -92,8 +94,9 @@ class Bin:
         index_size_list, self.index_size = self.size_calculator_8bit(0x10, 0x8, index_num)
         # 0x10
         index_header = ['42', '58', '44', '49', 'xx', 'xx', 'xx', 'xx',
-                        '3C', '00', '00', '00', '88', 'E9', '86', '00']
+                        'xx', 'xx', '00', '00', '88', 'E9', '86', '00']
         index_header[4:8] = index_size_list
+        index_header[8:10] = self.int_to_4bit_hex(index_num)
         # 0x8
         index_repeater = self.generate_index_repeater()
         index_header.extend(index_repeater)
@@ -105,15 +108,11 @@ class Bin:
         for _ in range(self.NUM):
             for j in range(self.FRAME * 2):
                 if j < self.FRAME:
-                    n1 = self.int_to_2bit_hex(i)
-                    n2 = self.int_to_2bit_hex(i + 1)
-                    index_ani = [n1, '00', '00', '00', n2, '00', '00', '00']
-                    index.extend(index_ani)
+                    index.extend([self.int_to_2bit_hex(i), '00', '00', '00',
+                                  self.int_to_2bit_hex(i + 1), '00', '00', '00'])
                     i += 1
                 else:
-                    n = self.int_to_2bit_hex(i)
-                    index_pic = [n, '00', '00', '00', 'FF', 'FF', 'FF', 'FF']
-                    index.extend(index_pic)
+                    index.extend([self.int_to_2bit_hex(i), '00', '00', '00', 'FF', 'FF', 'FF', 'FF'])
                     i += 1 if j == self.FRAME * 2 - 1 else 0
         return index
 
@@ -122,8 +121,9 @@ class Bin:
         frame_size_list, self.frame_size = self.size_calculator_8bit(0x10, 0x8, frame_num)
         # 0x10
         frame_header = ['42', '4D', '52', '46', 'xx', 'xx', 'xx', 'xx',
-                        '3C', '00', '00', '00', '70', 'E7', '86', '00']
+                        'xx', 'xx', '00', '00', '70', 'E7', '86', '00']
         frame_header[4:8] = frame_size_list
+        frame_header[8:10] = self.int_to_4bit_hex(frame_num)
         # 0x8
         frame_repeater = self.generate_frame_repeater()
         frame_header.extend(frame_repeater)
@@ -135,13 +135,13 @@ class Bin:
         for _ in range(self.NUM):
             for j in range(self.FRAME * 2):
                 if j < self.FRAME:
-                    n = self.int_to_2bit_hex(i)
-                    frame.append(n)
+                    frame.extend(self.int_to_4bit_hex(i))
                     i += self.TIME
                 else:
                     i = 0
                     frame.append('00')
-                frame.extend(['00', '01', '00', '68', '00', '08', '00'])
+                    frame.append('00')
+                frame.extend(['01', '00', '68', '00', '08', '00'])
         return frame
 
     def init_layer(self):
@@ -151,6 +151,7 @@ class Bin:
         layer_header = ['42', '59', '41', '4C', 'xx', 'xx', 'xx', 'xx',
                         '21', '00', '00', '00', '00', 'DA', '86', '00']
         layer_header[4:8] = layer_size_list
+        layer_header[8:10] = self.int_to_4bit_hex(layer_num)
         # 0x8
         # repeat self.NUM
         layer_repeater = self.generate_layer_repeater()
@@ -160,7 +161,7 @@ class Bin:
 
     def generate_layer_repeater(self) -> list:
         layer = [self.int_to_2bit_hex(self.FRAME), '00', '00', '00', 'B1', '14', '15', '77']
-        for i in range(self.FRAME):
+        for _ in range(self.FRAME):
             layer.extend(['01', '00', '00', '00', 'B1', '14', '15', '77'])
         return layer
 
@@ -197,8 +198,9 @@ class Bin:
         item_size_list, self.item_size = self.size_calculator_8bit(0x10, 0x38, item_num)
         # 0x10
         item_header = ['42', '4D', '54', '49', 'xx', 'xx', 'xx', 'xx',
-                       '21', '00', '00', '00', '78', '84', '83', '00']
+                       'xx', 'xx', '00', '00', '78', '84', '83', '00']
         item_header[4:8] = item_size_list
+        item_header[8:10] = self.int_to_4bit_hex(item_num)
         # 0x38
         item_repeater = self.generate_item_repeater()
         item_header.extend(item_repeater)
@@ -246,7 +248,7 @@ class Bin:
                                             + self.layer_size + self.item_size + self.string_size + 0x14)
         self.header_byte = self.list_to_byte(header)
 
-    def generate_ani(self) -> bool:
+    def generate_ani(self):
         self.init_element()
         self.init_index()
         self.init_frame()
@@ -254,15 +256,13 @@ class Bin:
         self.init_string()
         self.init_item()
         self.init_header()
-        return True
 
-    def generate_bin(self) -> bool:
+    def generate_bin(self):
         with open(self.bin_path, 'wb') as f:
             f.write(self.header_byte + self.element_byte + self.index_byte + self.frame_byte + self.layer_byte
                     + self.item_byte + self.string_byte)
-        return True
 
-    def generate_xml(self) -> bool:
+    def generate_xml(self):
         xml = f'<Texture name="{self.file_name}.png" />\n<Images>'
         k = 0
         for i in self.ani_name:
@@ -273,7 +273,6 @@ class Bin:
         xml += '\n</Images>\n<!--made by EF-->'
         with open(self.xml_path, 'w+') as f:
             f.write(xml)
-        return True
 
 
 if __name__ == '__main__':
