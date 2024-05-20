@@ -8,7 +8,7 @@ A tool can generate easytech-from animation bin and xml file.
 - Click 'Generate'.
 - Finished and enjoy it.
 
-> [!INFO]
+> [!NOTE]
 > Check a 10-frame animation bin in "./example".
 
 ## Bug Report
