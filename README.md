@@ -1,5 +1,5 @@
 # Easytech Animation Generator
-A tool can generate easytech-from animation bin and xml file.
+A tool can generate easytech-form animation bin and xml file.
 ## Usage
 - Open "Easytech_Animation_Generator.exe".
 - Chose path. Default value is current folder.
