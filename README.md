@@ -1,7 +1,7 @@
 # Easytech Animation Generator
 A tool can generate easytech-form animation bin and xml file.
 ## Usage
-- Open "Easytech_Animation_Generator.exe".
+- Open "Easytech_Animation_Generator.exe"(download it in [Release](https://github.com/EF-Lin/Easytech-Animation-Generator/releases/tag/v1.1.0)).
 - Chose path. Default value is current folder.
 - Enter animation frame and number. Default values is 10 and 3.
 - Change the interval of animation if you want.
